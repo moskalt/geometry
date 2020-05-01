@@ -20,5 +20,11 @@ int main() {
     }
   }
   temp_data = file_read_function(file_data);
+  for (int i = 0; i < MAX_LEN; i++) {
+    if (temp_data[i] != 0) {
+      printf("%s", temp_data[i]);
+    }
+  }
+  printf("\n");
   return 0;
 }
