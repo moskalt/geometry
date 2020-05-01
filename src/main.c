@@ -18,7 +18,7 @@ char **file_read_function(char **file_data) {
   int i = 0;
   char *temp_string, *ptrFile;
   while (1) {
-    temp_string = (char *)malloc(1000 * sizeof(char));
+    temp_string = (char *)calloc(1000, sizeof(char));
     ptrFile = fgets(temp_string, 1000, myfile);
     file_data[i] = ptrFile;
     i++;
@@ -36,13 +36,13 @@ char **file_read_function(char **file_data) {
 
 int main() {
   const int MAX_LEN = 100;
-  char **temp_data = (char **)malloc(MAX_LEN * sizeof(char *));
+  char **temp_data = (char **)calloc(MAX_LEN, sizeof(char *));
   for (int i = 0; i < MAX_LEN; i++) {
-    temp_data[i] = (char *)malloc(MAX_LEN * sizeof(char));
+    temp_data[i] = (char *)calloc(MAX_LEN, sizeof(char));
   }
-  char **file_data = (char **)malloc(MAX_LEN * sizeof(char *));
+  char **file_data = (char **)calloc(MAX_LEN, sizeof(char *));
   for (int i = 0; i < MAX_LEN; i++) {
-    file_data[i] = (char *)malloc(MAX_LEN * sizeof(char));
+    file_data[i] = (char *)calloc(MAX_LEN, sizeof(char));
   }
   for (int i = 0; i < MAX_LEN; i++) {
     for (int j = 0; j < MAX_LEN; j++) {
@@ -50,11 +50,5 @@ int main() {
     }
   }
   temp_data = file_read_function(file_data);
-  for (int i = 0; i < MAX_LEN; i++) {
-    free(temp_data[i]);
-    free(file_data[i]);
-  }
-  free(temp_data);
-  free(file_data);
   return 0;
 }
