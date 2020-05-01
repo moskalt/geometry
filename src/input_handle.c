@@ -23,7 +23,6 @@ int bracket_check(char* str)
 
 int name_check(char* str)
 {
-    const int ascii_plus = 32; // difference between x and X in ascii
     const char triangle[] = "triangle";
     const char circle[] = "circle";
     int check = 1;
