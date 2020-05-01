@@ -1,4 +1,10 @@
-dist: xenial
+language: c
 
 script:
+  - make && make run_geometry
   - git ls-files src/ | xargs clang-format -i && git diff --exit-code
+  
+
+compiler: gcc
+
+dist: xenial
