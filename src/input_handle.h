@@ -1,0 +1,2 @@
+#ifndef INPUT_HANDLE_H
+#define INPUT_HANDLE_H
