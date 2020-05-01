@@ -5,7 +5,7 @@
 
 char **file_read_function(char **file_data) {
   FILE *myfile;
-  myfile = fopen("./target.txt", "r");
+  myfile = fopen("./example/target.txt", "r");
   if (myfile == NULL) {
     printf("Error while opening file");
     return 1;
