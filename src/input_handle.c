@@ -3,6 +3,32 @@
 #include <stdlib.h>
 #include <string.h>
 
+char get_coordinates(char* str)
+{
+    int first_bracket_index = 0;
+    int last_bracket_index = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '(') {
+            first_bracket_index = i;
+            break;
+        }
+    }
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == ')') {
+            last_bracket_index = i;
+        }
+    }
+    char* temp_string = (char*)calloc(
+            last_bracket_index - first_bracket_index + 2, sizeof(char));
+    int counter = 0;
+    for (int i = first_bracket_index; i < last_bracket_index + 1; i++) {
+        temp_string[counter] = str[i];
+        counter++;
+    }
+    temp_string[counter] = '\0';
+    return temp_string;
+}
+
 int bracket_check(char* str)
 {
     unsigned int counter_left = 0;
