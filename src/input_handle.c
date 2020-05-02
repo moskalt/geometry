@@ -90,6 +90,38 @@ int get_name(char* str)
         return 0;
 }
 
+int symbols_in_coordinates_check(char* string)
+{
+    char* coord_string = get_coordinates(string);
+    int counter_triangle = 0;
+    int counter_circle = 0;
+    if (bracket_check(string) == 0) {
+        if (get_name(string) == 1) {
+            for (unsigned int i = 0; coord_string[i] != '\0'; i++) {
+                if (coord_string[i] == ',') {
+                    counter_triangle++;
+                }
+            }
+        } else if (get_name(string) == 2) {
+            for (unsigned int i = 0; coord_string[i] != '\0'; i++) {
+                if (coord_string[i] == ',') {
+                    counter_circle++;
+                }
+            }
+        } else {
+            return 1; // error
+        }
+
+    } else {
+        return 1; // error
+    }
+    if (counter_triangle == 3 || counter_circle == 2) {
+        return 0; // valid coordinates
+    } else {
+        return 1; // error
+    }
+}
+
 char** file_read_function(char** file_data)
 {
     FILE* myfile;

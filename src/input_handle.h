@@ -5,4 +5,5 @@ int name_check(char* str);
 int bracket_check(char* str);
 char* get_coordinates(char* str);
 int get_name(char* str);
+int symbols_in_coordinates_check(char* string);
 #endif
