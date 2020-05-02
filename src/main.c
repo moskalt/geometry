@@ -4,8 +4,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+const int MAX_COUNT_OF_SHAPES = 10;
+
+typedef struct shape {
+    char* name;
+    int type;
+    int* coordinates;
+    float perimeter;
+    float area;
+};
+
 int main()
 {
+    struct shape* shapes_array = (struct shape*)(calloc(
+            MAX_COUNT_OF_SHAPES, sizeof(struct shape)));
     const int MAX_LEN = 100;
     char** temp_data = (char**)calloc(MAX_LEN, sizeof(char*));
     for (int i = 0; i < MAX_LEN; i++) {
