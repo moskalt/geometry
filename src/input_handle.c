@@ -78,6 +78,18 @@ int name_check(char* str)
     }
 }
 
+char* get_name(char* str)
+{
+    int check = 0;
+    if (name_check(str) == 1) {
+        if (str[0] == 't' || str[0] == 'T') {
+            return "triangle";
+        } else {
+            return "circle";
+        }
+    }
+}
+
 char** file_read_function(char** file_data)
 {
     FILE* myfile;
