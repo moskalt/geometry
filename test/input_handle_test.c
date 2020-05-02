@@ -63,3 +63,22 @@ CTEST(input_handle, get_name)
     ASSERT_EQUAL(exception_first, res_first);
     ASSERT_EQUAL(exception_second, res_second);
 }
+
+CTEST(input_handle, symbols_in_coordinates_check)
+{
+    // Given
+    char* first = "trIaNgle  (  (-3 -2, -1   0, -3 2, -3  -2))";
+    char* second = "circle(0 0, 1.5))";
+    char* third = "CircLe(0 0 14)";
+    // When
+    int res_first = symbols_in_coordinates_check(first);
+    int res_second = symbols_in_coordinates_check(second);
+    int res_third = symbols_in_coordinates_check(third);
+    // Then
+    int exception_first = 0;
+    int exception_second = 1;
+    int exception_third = 1;
+    ASSERT_EQUAL(exception_first, res_first);
+    ASSERT_EQUAL(exception_second, res_second);
+    ASSERT_EQUAL(exception_third, res_third);
+}
