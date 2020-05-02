@@ -34,3 +34,17 @@ CTEST(input_handle, bracket_check)
     ASSERT_EQUAL(res_first, exception_first);
     ASSERT_EQUAL(res_second, exception_second);
 }
+CTEST(input_handle, get_coordinates)
+{
+    // Given
+    char* first = "triangle  (  (-3 -2, -1   0, -3 2, -3  -2))";
+    char* second = "triangle((3 -2, 3 2, 1 0, 3 -2))";
+    // When
+    char* res_first = get_coordinates(first);
+    char* res_second = get_coordinates(second);
+    // Then
+    char* exception_first = "(  (-3 -2, -1   0, -3 2, -3  -2))";
+    char* exception_second = "((3 -2, 3 2, 1 0, 3 -2))";
+    ASSERT_STR(exception_first, res_first);
+    ASSERT_STR(exception_second, res_second);
+}
