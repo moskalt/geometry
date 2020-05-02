@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char get_coordinates(char* str)
+char* get_coordinates(char* str)
 {
     int first_bracket_index = 0;
     int last_bracket_index = 0;
@@ -19,7 +19,7 @@ char get_coordinates(char* str)
         }
     }
     char* temp_string = (char*)calloc(
-            last_bracket_index - first_bracket_index + 2, sizeof(char));
+            last_bracket_index - first_bracket_index + 5, sizeof(char));
     int counter = 0;
     for (int i = first_bracket_index; i < last_bracket_index + 1; i++) {
         temp_string[counter] = str[i];
