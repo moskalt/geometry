@@ -72,22 +72,22 @@ int name_check(char* str)
         check = 0;
     }
     if (check == 1) {
-        return 0;
+        return 0; // correct name
     } else {
         return 1;
     }
 }
 
-char* get_name(char* str)
+int get_name(char* str)
 {
-    int check = 0;
-    if (name_check(str) == 1) {
+    if (name_check(str) == 0) {
         if (str[0] == 't' || str[0] == 'T') {
-            return "triangle";
+            return 1; // is triangle
         } else {
-            return "circle";
+            return 2; // is circle
         }
-    }
+    } else
+        return 0;
 }
 
 char** file_read_function(char** file_data)

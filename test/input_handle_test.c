@@ -48,3 +48,18 @@ CTEST(input_handle, get_coordinates)
     ASSERT_STR(exception_first, res_first);
     ASSERT_STR(exception_second, res_second);
 }
+
+CTEST(input_handle, get_name)
+{
+    // Given
+    char* first = "trIaNgle  (  (-3 -2, -1   0, -3 2, -3  -2))";
+    char* second = "CircLe((3 -2, 3 2, 1 0, 3 -2))";
+    // When
+    int res_first = get_name(first);
+    int res_second = get_name(second);
+    // Then
+    int exception_first = 1;
+    int exception_second = 2;
+    ASSERT_EQUAL(exception_first, res_first);
+    ASSERT_EQUAL(exception_second, res_second);
+}
