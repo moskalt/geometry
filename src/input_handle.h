@@ -7,4 +7,5 @@ char* get_coordinates(char* str);
 int get_name(char* str);
 int symbols_in_coordinates_check(char* string);
 char** coordinates_separation(char* str, int type);
+int* coord_to_int(char* string);
 #endif

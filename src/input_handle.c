@@ -229,12 +229,15 @@ char** coordinates_separation(char* str, int type)
         int counter = 0;
         for (unsigned int i = last_left_br_index + 1; i < comma_index; i++) {
             temp_string_1[counter] = str[i];
+            counter++;
         }
         temp_string_1[counter + 1] = '\0';
         temp_string_array[temp_string_array_index] = temp_string_1;
+        temp_string_array_index++;
         counter = 0;
         for (unsigned int i = comma_index + 1; i < first_right_br_index; i++) {
             temp_string_2[counter] = str[i];
+            counter++;
         }
         temp_string_2[counter + 1] = '\0';
         temp_string_array[temp_string_array_index] = temp_string_2;
@@ -243,6 +246,91 @@ char** coordinates_separation(char* str, int type)
     }
 }
 
+int* coord_to_int(char* string)
+{
+    int type = get_name(string);
+    char* string_coord = get_coordinates(string);
+    char** separated_array = coordinates_separation(string, type);
+    char* temp_string = (char*)calloc(15, sizeof(char));
+    char* temp_string_for_int_convert = (char*)calloc(15, sizeof(char));
+    int len;
+    int checker = 0;
+    int temp_index = 0;
+    int array_index = 0;
+    int temp_j;
+    int space_index = 0;
+    if (type == 1) {
+        len = 4;
+    } else {
+        len = 2;
+    }
+    int* array = (int*)malloc(len * 2 * sizeof(int));
+    if (type == 1) {
+        for (int i = 0; i < len; i++) {
+            checker = 0;
+            for (int k = strlen(temp_string); k >= 0; k--) {
+                temp_string[k] = '\0';
+            }
+            temp_string = separated_array[i];
+            for (unsigned int j = 0; j < strlen(temp_string); j++) {
+                if (temp_string[j] == ' ' && checker == 1) {
+                    space_index = j;
+                    break;
+                } else if (temp_string[j] != ' ') {
+                    checker = 1;
+                }
+            }
+            for (int j = 0; j < space_index; j++) {
+                temp_string_for_int_convert[temp_index] = temp_string[j];
+                temp_index++;
+            }
+            temp_string_for_int_convert[temp_index] = '\0';
+            array[array_index] = atoi(temp_string_for_int_convert);
+            array_index++;
+            temp_index = 0;
+            for (int k = strlen(temp_string_for_int_convert); k >= 0; k--) {
+                temp_string_for_int_convert[k] = '\0';
+            }
+            for (unsigned int j = space_index; j < strlen(temp_string); j++) {
+                temp_string_for_int_convert[temp_index] = temp_string[j];
+                temp_index++;
+            }
+            array[array_index] = atoi(temp_string_for_int_convert);
+            array_index++;
+            temp_index = 0;
+            for (int k = strlen(temp_string_for_int_convert); k >= 0; k--) {
+                temp_string_for_int_convert[k] = '\0';
+            }
+        }
+        for (int k = strlen(temp_string); k >= 0; k--) {
+            temp_string[k] = '\0';
+        }
+    } else if (type == 2) { // working correct
+        checker = 0;
+        temp_string = separated_array[0];
+        for (int i = 0; temp_string[i] != '\0'; i++) {
+            if (temp_string[i] != ' ' && checker == 0) {
+                temp_string_for_int_convert[temp_index] = temp_string[i];
+                temp_index++;
+                temp_j = i;
+            } else if (temp_string[i] != ' ') {
+                checker = 1;
+            }
+        }
+        array_index = 0;
+        array[array_index] = atoi(temp_string_for_int_convert);
+        array_index++;
+        temp_index = 0;
+        for (int i = temp_j; temp_string[i] != '\0'; i++) {
+            temp_string_for_int_convert[temp_index] = temp_string[i];
+            temp_index++;
+        }
+        array[array_index] = atoi(temp_string_for_int_convert);
+        array_index++;
+        array[array_index] = atoi(separated_array[1]);
+    }
+    return array;
+}
 char** file_read_function(char** file_data)
 {
     FILE* myfile;

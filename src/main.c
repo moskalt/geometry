@@ -38,6 +38,18 @@ int main()
             printf("%s", temp_data[i]);
         }
     }
+    char* temp_string = temp_data[0];
+    char** array = coordinates_separation(temp_string, get_name(temp_string));
+    printf("\n");
+    for (int i = 0; i < 4; i++) {
+        printf("%s\n", array[i]);
+    }
+    printf("\n");
+
+    int* array_int = coord_to_int(temp_string);
+    for (int i = 0; i < 8; i++) {
+        printf("%d ", array_int[i]);
+    }
     printf("\n");
     return 0;
 }
