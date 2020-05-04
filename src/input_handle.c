@@ -120,8 +120,8 @@ int symbols_in_coordinates_check(char* string)
         if (coord_string[i] != ' ' && coord_string[i] != '('
             && coord_string[i] != ')' && coord_string[i] != ',') {
             if (coord_string[i] == '1' || coord_string[i] == '2'
-                || coord_string[i] == '3' || coord_string == '3'
-                || coord_string[i] == '4' || coord_string == '5'
+                || coord_string[i] == '3' || coord_string[i] == '3'
+                || coord_string[i] == '4' || coord_string[i] == '5'
                 || coord_string[i] == '6' || coord_string[i] == '7'
                 || coord_string[i] == '8' || coord_string[i] == '9'
                 || coord_string[i] == '0' || coord_string[i] == '.'
@@ -137,6 +137,111 @@ int symbols_in_coordinates_check(char* string)
         return 0; // valid coordinates
     } else {
         return 1; // error
+    }
+}
+
+char** coordinates_separation(char* str, int type)
+{
+    // str : coord str;
+    int last_left_br_index = 0;
+    int first_right_br_index = 0;
+    int first_comma_index, second_comma_index, third_comma_index;
+    int counter = 0;
+    for (unsigned int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '(') {
+            last_left_br_index = i;
+        } else if (str[i] == ')') {
+            first_right_br_index = i;
+            break;
+        }
+    }
+    if (type == 1) {
+        char** temp_string_array = (char**)calloc(4, sizeof(char*));
+        for (unsigned int i = 0; i < strlen(temp_string_array); i++)
+            temp_string_array[i] = (char*)calloc(10, sizeof(char));
+        int temp_string_array_index = 0;
+        char* temp_string = (char*)calloc(40, sizeof(char));
+        for (unsigned int i = last_left_br_index; i < first_right_br_index;
+             i++) {
+            if (str[i] == ',' && counter == 0) {
+                counter++;
+                first_comma_index = i;
+            } else if (str[i] == ',' && counter == 1) {
+                counter++;
+                second_comma_index = i;
+            } else if (str[i] == ',' && counter == 2) {
+                counter++;
+                third_comma_index = i;
+            }
+        }
+        int temp_index = 0;
+        for (int i = last_left_br_index + 1; i < first_comma_index; i++) {
+            temp_string[temp_index] = str[i];
+            temp_index++;
+        }
+        temp_string[temp_index + 1] = '\0';
+        temp_string_array[temp_string_array_index] = temp_string;
+        temp_string_array_index++;
+        temp_string[0] = '\0';
+        temp_index = 0;
+        for (int i = first_comma_index + 1; i < second_comma_index; i++) {
+            temp_string[temp_index] = str[i];
+            temp_index++;
+        }
+        temp_string[temp_index + 1] = '\0';
+        temp_string_array[temp_string_array_index] = temp_string;
+        temp_string_array_index++;
+        temp_string[0] = '\0';
+        temp_index = 0;
+        for (int i = second_comma_index + 1; i < third_comma_index; i++) {
+            temp_string[temp_index] = str[i];
+            temp_index++;
+        }
+        temp_string[temp_index + 1] = '\0';
+        temp_string_array[temp_string_array_index] = temp_string;
+        temp_string_array_index++;
+        temp_string[0] = '\0';
+        temp_index = 0;
+        for (int i = third_comma_index + 1; i < first_right_br_index; i++) {
+            temp_string[temp_index] = str[i];
+            temp_index++;
+        }
+        temp_string[temp_index + 1] = '\0';
+        temp_string_array[temp_string_array_index] = temp_string;
+        temp_string_array_index++;
+        temp_string[0] = '\0';
+        temp_index = 0;
+        return temp_string_array;
+    } else if (type == 2) {
+        char** temp_string_array = (char**)calloc(2, sizeof(char*));
+        for (unsigned int i = 0; i < strlen(temp_string_array); i++)
+            temp_string_array[i] = (char*)calloc(10, sizeof(char));
+        int temp_string_array_index = 0;
+        char* temp_string = (char*)calloc(40, sizeof(char));
+        int comma_index;
+        for (unsigned int i = last_left_br_index + 1; i < first_right_br_index;
+             i++) {
+            if (str[i] == ',') {
+                comma_index = i;
+                break;
+            }
+        }
+        int counter = 0;
+        for (unsigned int i = last_left_br_index + 1; i < comma_index; i++) {
+            temp_string[counter] = str[i];
+        }
+        temp_string[counter + 1] = '\0';
+        temp_string_array[temp_string_array_index] = temp_string;
+        counter = 0;
+        temp_string[0] = '\0';
+        for (unsigned int i = comma_index + 1; i < first_right_br_index; i++) {
+            temp_string[counter] = str[i];
+        }
+        temp_string[counter + 1] = '\0';
+        temp_string_array[temp_string_array_index] = temp_string;
+        counter = 0;
+        temp_string[0] = '\0';
+        return temp_string_array;
     }
 }
 
