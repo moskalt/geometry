@@ -86,3 +86,25 @@ CTEST(input_handle, symbols_in_coordinates_check)
     ASSERT_EQUAL(exception_third, res_third);
     ASSERT_EQUAL(exception_fourth, res_fourth);
 }
+CTEST(input_handle, coordinates_valid_check)
+{
+    // Given
+    int first[] = {-3, -2, -1, 0, -3, 2, -3, -2};
+    int second[] = {0, 0, 20};
+    int third[] = {0, -1, -5};
+    int fourth[] = {3, -2, -1, 0, -3, 2, -8, 7};
+    // When
+    int res_first = coordinates_valid_check(first, 8);
+    int res_second = coordinates_valid_check(second, 3);
+    int res_third = coordinates_valid_check(third, 3);
+    int res_fourth = coordinates_valid_check(fourth, 8);
+    // Then
+    int exception_first = 0;
+    int exception_second = 0;
+    int exception_third = 1;
+    int exception_fourth = 1;
+    ASSERT_EQUAL(exception_first, res_first);
+    ASSERT_EQUAL(exception_second, res_second);
+    ASSERT_EQUAL(exception_third, res_third);
+    ASSERT_EQUAL(exception_fourth, res_fourth);
+}
