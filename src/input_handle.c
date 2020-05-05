@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -331,6 +332,30 @@ int* coord_to_int(char* string)
     }
     return array;
 }
+
+int coordinates_valid_check(int* array, int len)
+{
+    float a, b, c;
+    if (len == 3) {
+        if (array[2] <= 0) {
+            return 1; // error
+        } else {
+            return 0;
+        }
+    } else {
+        if (array[0] == array[6] && array[1] == array[7]) {
+            a = sqrt(pow(array[0] - array[2], 2) + pow(array[1] - array[3], 2));
+            b = sqrt(pow(array[2] - array[4], 2) + pow(array[3] - array[5], 2));
+            c = sqrt(pow(array[4] - array[6], 2) + pow(array[5] - array[7], 2));
+            if ((a < b + c) && (b < a + c) && (c < a + b)) {
+                return 0;
+            }
+        } else {
+            return 1;
+        }
+    }
+}
+
 char** file_read_function(char** file_data)
 {
     FILE* myfile;
