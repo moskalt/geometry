@@ -14,3 +14,13 @@ float* lines_from_coordinates(int* array)
     lines_array[2] = c;
     return lines_array;
 }
+
+float perimeter(int* array)
+{
+    float* lines_array = lines_from_coordinates(array);
+    float perimeter = 0;
+    for (int i = 0; i < 3; i++) {
+        perimeter += lines_array[i];
+    }
+    return perimeter;
+}
