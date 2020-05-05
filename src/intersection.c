@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define PI 3.1415926535
 
 float* lines_from_coordinates(int* array)
 {
@@ -22,5 +23,11 @@ float perimeter(int* array)
     for (int i = 0; i < 3; i++) {
         perimeter += lines_array[i];
     }
+    return perimeter;
+}
+float perimeter_circle(int* array)
+{
+    int radious = array[2];
+    float perimeter = 2 * PI * radious;
     return perimeter;
 }

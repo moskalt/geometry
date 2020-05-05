@@ -42,6 +42,8 @@ int main()
                 if (coordinates_valid_check(coord_to_int(temp_data[i]), 8)
                     == 0) {
                     shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                    shapes_array[i].perimeter
+                            = perimeter(shapes_array[i].coordinates);
                 } else {
                     return 10; // error
                 }
@@ -52,6 +54,8 @@ int main()
                 if (coordinates_valid_check(coord_to_int(temp_data[i]), 3)
                     == 0) {
                     shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                    shapes_array[i].perimeter
+                            = perimeter_circle(shapes_array[i].coordinates);
                 } else {
                     return 10; // error
                 }
@@ -68,13 +72,15 @@ int main()
             for (int j = 0; j < 8; j++) {
                 printf("%d  ", shapes_array[i].coordinates[j]);
             }
-            printf("}");
+            printf("}\n");
+            printf("   perimeter: %f \n", shapes_array[i].perimeter);
         } else if (shapes_array[i].type == 2) {
             printf("   coordinates :{");
             for (int j = 0; j < 3; j++) {
                 printf("%d  ", shapes_array[i].coordinates[j]);
             }
-            printf("}");
+            printf("}\n");
+            printf("   perimeter: %f \n", shapes_array[i].perimeter);
         }
         printf("\n");
     }
