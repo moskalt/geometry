@@ -42,3 +42,11 @@ float area_triangle(int* array)
                    * (semiperimeter - lines_array[2]));
     return area;
 }
+float area_circle(int* array)
+{
+    float* lines_array = lines_from_coordinates(array);
+    float area;
+    int radious = array[2];
+    area = PI * radious * radious;
+    return area;
+}
