@@ -44,6 +44,8 @@ int main()
                     shapes_array[i].coordinates = coord_to_int(temp_data[i]);
                     shapes_array[i].perimeter
                             = perimeter(shapes_array[i].coordinates);
+                    shapes_array[i].area
+                            = area_triangle(shapes_array[i].coordinates);
                 } else {
                     return 10; // error
                 }
@@ -74,6 +76,7 @@ int main()
             }
             printf("}\n");
             printf("   perimeter: %f \n", shapes_array[i].perimeter);
+            printf("   area: %f \n", shapes_array[i].area);
         } else if (shapes_array[i].type == 2) {
             printf("   coordinates :{");
             for (int j = 0; j < 3; j++) {
