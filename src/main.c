@@ -38,11 +38,23 @@ int main()
             if (get_name(temp_data[i]) == 1) {
                 shapes_array[i].name = "triangle";
                 shapes_array[i].type = 1;
-                shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                int len;
+                if (coordinates_valid_check(coord_to_int(temp_data[i]), 8)
+                    == 0) {
+                    shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                } else {
+                    return 10; // error
+                }
+
             } else if (get_name(temp_data[i]) == 2) {
                 shapes_array[i].name = "circle";
                 shapes_array[i].type = 2;
-                shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                if (coordinates_valid_check(coord_to_int(temp_data[i]), 3)
+                    == 0) {
+                    shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                } else {
+                    return 10; // error
+                }
             }
         }
     }
