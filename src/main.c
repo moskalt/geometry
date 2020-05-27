@@ -38,11 +38,31 @@ int main()
             if (get_name(temp_data[i]) == 1) {
                 shapes_array[i].name = "triangle";
                 shapes_array[i].type = 1;
-                shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                int len;
+                if (coordinates_valid_check(coord_to_int(temp_data[i]), 8)
+                    == 0) {
+                    shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                    shapes_array[i].perimeter
+                            = perimeter(shapes_array[i].coordinates);
+                    shapes_array[i].area
+                            = area_triangle(shapes_array[i].coordinates);
+                } else {
+                    return 10; // error
+                }
+
             } else if (get_name(temp_data[i]) == 2) {
                 shapes_array[i].name = "circle";
                 shapes_array[i].type = 2;
-                shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                if (coordinates_valid_check(coord_to_int(temp_data[i]), 3)
+                    == 0) {
+                    shapes_array[i].coordinates = coord_to_int(temp_data[i]);
+                    shapes_array[i].perimeter
+                            = perimeter_circle(shapes_array[i].coordinates);
+                    shapes_array[i].area
+                            = area_circle(shapes_array[i].coordinates);
+                } else {
+                    return 10; // error
+                }
             }
         }
     }
@@ -56,13 +76,17 @@ int main()
             for (int j = 0; j < 8; j++) {
                 printf("%d  ", shapes_array[i].coordinates[j]);
             }
-            printf("}");
+            printf("}\n");
+            printf("   perimeter: %f \n", shapes_array[i].perimeter);
+            printf("   area: %f \n", shapes_array[i].area);
         } else if (shapes_array[i].type == 2) {
             printf("   coordinates :{");
             for (int j = 0; j < 3; j++) {
                 printf("%d  ", shapes_array[i].coordinates[j]);
             }
-            printf("}");
+            printf("}\n");
+            printf("   perimeter: %f \n", shapes_array[i].perimeter);
+            printf("   area: %f \n", shapes_array[i].area);
         }
         printf("\n");
     }
