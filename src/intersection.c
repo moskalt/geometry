@@ -171,3 +171,52 @@ int intersect(float a, float b, float c, float d)
         return 0;
     return 0;
 }
+
+int intersection_tr_tr(struct shape a, struct shape b)
+{
+    float A1 = 0, B1 = 0, C1 = 0, A2 = 0, B2 = 0, C2 = 0, zn = 0, x = 0, y = 0,
+          bool = 0, c = 0, d = 0;
+    if (a.type == 't') {
+        if (b.type == 't') {
+            A1 = a.coordinates[1] - a.coordinates[3],
+            B1 = a.coordinates[2] - a.coordinates[0],
+            C1 = -A1 * a.coordinates[0] - B1 * a.coordinates[1];
+            A2 = b.coordinates[1] - b.coordinates[3],
+            B2 = b.coordinates[2] - a.coordinates[0],
+            C2 = -A2 * b.coordinates[0] - B2 * b.coordinates[1];
+            zn = det(A1, B1, A2, B2);
+            if (zn != 0) {
+                x = -det(C1, B1, C2, B2) * 1. / zn;
+                y = -det(A1, C1, A2, C2) * 1. / zn;
+                bool = between(a.coordinates[0], a.coordinates[2], x)
+                        * between(a.coordinates[1], a.coordinates[3], y)
+                        * between(b.coordinates[0], b.coordinates[2], x)
+                        * between(b.coordinates[1], b.coordinates[3], y);
+                if (bool == 0) {
+                    return 0;
+                } else if (bool == 1) {
+                    return 1;
+                }
+            } else {
+                if ((det(A1, C1, A2, C2) == 0) && (det(B1, C1, B2, C2) == 0)) {
+                    c = (intersect(
+                            a.coordinates[0],
+                            a.coordinates[2],
+                            b.coordinates[0],
+                            b.coordinates[2]));
+                    d = (intersect(
+                            a.coordinates[1],
+                            a.coordinates[3],
+                            b.coordinates[3],
+                            b.coordinates[3]));
+                    if ((c * d) == 1) {
+                        return 1;
+                    }
+                }
+            }
+        }
+    } else {
+        return 0;
+    }
+    return 0;
+}
