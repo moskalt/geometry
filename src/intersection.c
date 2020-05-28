@@ -151,3 +151,10 @@ float between(float a, float b, float c)
         exp_2 = 0;
     return exp_1 * exp_2;
 }
+
+void swap(float* a, float* b)
+{
+    float tmp = *a;
+    *a = *b;
+    *b = tmp;
+}

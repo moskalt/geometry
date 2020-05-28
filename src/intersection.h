@@ -12,4 +12,5 @@ float min(float a, float b);
 float max(float a, float b);
 float det(float a, float b, float c, float d);
 float between(float a, float b, float c);
+void swap(float* a, float* b);
 #endif
