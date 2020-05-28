@@ -13,4 +13,7 @@ float max(float a, float b);
 float det(float a, float b, float c, float d);
 float between(float a, float b, float c);
 void swap(float* a, float* b);
+int intersect(float a, float b, float c, float d);
+int intersection_tr_tr(struct shape a, struct shape b);
+void print_shapes(struct shape list[], int n);
 #endif

@@ -8,6 +8,7 @@ typedef struct shape {
     int* coordinates;
     float perimeter;
     float area;
+    char** inc;
 };
 
 float* lines_from_coordinates(int* array)
@@ -219,4 +220,22 @@ int intersection_tr_tr(struct shape a, struct shape b)
         return 0;
     }
     return 0;
+}
+
+void print_shapes(struct shape list[], int n)
+{
+    for (int i = 0; i < n; i++) {
+        printf(" %s\n", list[i].name);
+        printf("   perimeter = %.4f\n", list[i].perimeter);
+        printf("   area = %.4f\n", list[i].area);
+        if (strlen(list[i].inc[0]) > 0) {
+            printf("   intersects:\n");
+        }
+        for (int j = 0; j < n; j++) {
+            if (strlen(list[i].inc[j]) > 0) {
+                printf("      %s\n", list[i].inc[j]);
+            }
+        }
+        printf("\n");
+    }
 }
