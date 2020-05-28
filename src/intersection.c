@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define PI 3.1415926535
+typedef struct shape {
+    char* name;
+    int type;
+    int* coordinates;
+    float perimeter;
+    float area;
+};
 
 float* lines_from_coordinates(int* array)
 {
@@ -49,4 +56,44 @@ float area_circle(int* array)
     int radious = array[2];
     area = PI * radious * radious;
     return area;
+}
+
+double side_length(double x, double y, double xx, double yy)
+{
+    double len = 0;
+    len = sqrt((x - xx) * (x - xx) + (y - yy) * (y - yy));
+    return len;
+}
+
+int intersection_cr_tr(struct shape circle, struct shape triangle)
+{
+    if (circle.type != 'c' || triangle.type != 't') {
+        printf("%s\n", "Input ERROR");
+        return -1;
+    }
+    if (side_length(
+                triangle.coordinates[0],
+                triangle.coordinates[1],
+                circle.coordinates[0],
+                circle.coordinates[1])
+        <= circle.coordinates[2]) {
+        return 1;
+    }
+    if (side_length(
+                triangle.coordinates[2],
+                triangle.coordinates[3],
+                circle.coordinates[0],
+                circle.coordinates[1])
+        <= circle.coordinates[2]) {
+        return 1;
+    }
+    if (side_length(
+                triangle.coordinates[4],
+                triangle.coordinates[5],
+                circle.coordinates[0],
+                circle.coordinates[1])
+        <= circle.coordinates[2]) {
+        return 1;
+    }
+    return 0;
 }
