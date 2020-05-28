@@ -10,4 +10,6 @@ int intersection_cr_tr(struct shape circle, struct shape triangle);
 int intersection_cr_cr(struct shape circle_a, struct shape circle_b);
 float min(float a, float b);
 float max(float a, float b);
+float det(float a, float b, float c, float d);
+float between(float a, float b, float c);
 #endif

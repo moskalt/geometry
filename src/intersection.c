@@ -131,3 +131,23 @@ float max(float a, float b)
         return a;
     return 0;
 }
+
+float det(float a, float b, float c, float d)
+{
+    return a * d - b * c;
+}
+
+float between(float a, float b, float c)
+{
+    float exp_1;
+    float exp_2;
+    if (min(a, b) <= c)
+        exp_1 = 1;
+    else
+        exp_1 = 0;
+    if (c <= max(a, b))
+        exp_2 = 1;
+    else
+        exp_2 = 0;
+    return exp_1 * exp_2;
+}
