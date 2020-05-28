@@ -158,3 +158,16 @@ void swap(float* a, float* b)
     *a = *b;
     *b = tmp;
 }
+
+int intersect(float a, float b, float c, float d)
+{
+    if (a > b)
+        swap(&a, &b);
+    if (c > d)
+        swap(&c, &d);
+    if (max(a, c) <= min(b, d))
+        return 1;
+    if (max(a, c) > min(b, d))
+        return 0;
+    return 0;
+}
