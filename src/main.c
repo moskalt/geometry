@@ -5,20 +5,10 @@
 #include <string.h>
 
 const int MAX_COUNT_OF_SHAPES = 10;
-
-typedef struct shape {
-    char* name;
-    int type;
-    int* coordinates;
-    float perimeter;
-    float area;
-};
+const int MAX_LEN = 100;
 
 int main()
 {
-    struct shape* shapes_array = (struct shape*)(calloc(
-            MAX_COUNT_OF_SHAPES, sizeof(struct shape)));
-    const int MAX_LEN = 100;
     char** temp_data = (char**)calloc(MAX_LEN, sizeof(char*));
     for (int i = 0; i < MAX_LEN; i++) {
         temp_data[i] = (char*)calloc(MAX_LEN, sizeof(char));
@@ -33,7 +23,18 @@ int main()
         }
     }
     temp_data = file_read_function(file_data);
+    if (temp_data == NULL) {
+        printf("Error");
+        return 0;
+    }
+    int counter = 0;
     for (int i = 0; i < MAX_COUNT_OF_SHAPES; i++) {
+        if (strlen(temp_data[i]) > 0) {
+            counter++;
+        }
+    }
+    fill_list(temp_data, counter);
+    /*for (int i = 0; i < MAX_COUNT_OF_SHAPES; i++) {
         if (temp_data[i][0] != '\0') {
             if (get_name(temp_data[i]) == 1) {
                 shapes_array[i].name = "triangle";
@@ -65,8 +66,8 @@ int main()
                 }
             }
         }
-    }
-    for (int i = 0; i < MAX_COUNT_OF_SHAPES; i++) {
+    }*/
+    /*for (int i = 0; i < MAX_COUNT_OF_SHAPES; i++) {
         if (shapes_array[i].type == 0) {
             continue;
         }
@@ -89,6 +90,6 @@ int main()
             printf("   area: %f \n", shapes_array[i].area);
         }
         printf("\n");
-    }
+    }*/
     return 0;
 }

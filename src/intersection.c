@@ -1,15 +1,29 @@
+#include "input_handle.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#define MAX_LEN 100
 #define PI 3.1415926535
 typedef struct shape {
     char* name;
-    int type;
+    char* type;
     int* coordinates;
     float perimeter;
     float area;
     char** inc;
 };
+
+char* squeeze(char s[])
+{
+    int i, j = 0;
+    char* dest = (char*)malloc(((strlen(s) + 1) * sizeof(char)));
+    for (i = j = 0; s[i] != '\0'; i++)
+        if (s[i] != '.')
+            dest[j++] = s[i];
+    dest[j] = '\0';
+    return dest;
+}
 
 float* lines_from_coordinates(int* array)
 {
@@ -238,4 +252,94 @@ void print_shapes(struct shape list[], int n)
         }
         printf("\n");
     }
+}
+
+char* caps(char str[])
+{
+    const char trin[] = "triangle";
+    const char cap_trin[] = "TRIANGLE";
+    const char circ[] = "circle";
+    const char cap_circ[] = "CIRCLE";
+    int j = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == trin[j] || str[i] == cap_trin[j]) {
+            str[i] = cap_trin[j];
+            j++;
+        } else if (str[i] == circ[j] || str[i] == cap_circ[j]) {
+            str[i] = cap_circ[j];
+            j++;
+        }
+    }
+    return str;
+}
+
+void fill_list(char** data, int count)
+{
+    struct shape* list = (struct shape*)calloc(count, sizeof(struct shape));
+    for (int i = 0; i < count; i++) {
+        char* new_name = (char*)calloc(MAX_LEN, sizeof(char));
+        new_name[0] = (char)(i + 1 + 48);
+        new_name[1] = '.';
+        list[i].name = strcat(new_name, squeeze(data[i]));
+        list[i].name = caps(list[i].name);
+        if (data[i][0] == 't' || data[i][0] == 'T') {
+            list[i].type = 't';
+        } else {
+            list[i].type = 'c';
+        }
+        list[i].coordinates = coord_to_int(data[i]);
+        if (list[i].type == 't') {
+            list[i].perimeter = perimeter(list[i].coordinates);
+            list[i].area = area_triangle(list[i].coordinates);
+        } else {
+            list[i].perimeter = perimeter_circle(list[i].coordinates);
+            list[i].area = area_circle(list[i].coordinates);
+        }
+    }
+    int k = 0;
+    for (int i = 0; i < count; i++) {
+        char** intersec_matrix = (char**)malloc(count * sizeof(char*));
+        for (int ii = 0; ii < count; ii++) {
+            intersec_matrix[ii] = (char*)malloc(MAX_LEN * sizeof(char));
+        }
+        for (int ii = 0; ii < count; ii++) {
+            for (int jj = 0; jj < MAX_LEN; jj++) {
+                intersec_matrix[ii][jj] = 0;
+            }
+        }
+        for (int j = 0; j < count; j++) {
+            if (i == j) {
+                continue;
+            }
+            if (list[i].type == 'c') {
+                if (list[j].type == 'c') {
+                    if (intersection_cr_cr(list[i], list[j])) {
+                        intersec_matrix[k] = list[j].name;
+                        k++;
+                    }
+                } else {
+                    if (intersection_cr_tr(list[i], list[j])) {
+                        intersec_matrix[k] = list[j].name;
+                        k++;
+                    }
+                }
+            } else {
+                if (list[j].type == 't') {
+                    if (intersection_tr_tr(list[i], list[j])) {
+                        intersec_matrix[k] = list[j].name;
+                        k++;
+                    }
+
+                } else {
+                    if (intersection_cr_tr(list[j], list[i])) {
+                        intersec_matrix[k] = list[j].name;
+                        k++;
+                    }
+                }
+            }
+        }
+        list[i].inc = intersec_matrix;
+        k = 0;
+    }
+    print_shapes(list, count);
 }
