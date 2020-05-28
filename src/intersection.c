@@ -97,3 +97,20 @@ int intersection_cr_tr(struct shape circle, struct shape triangle)
     }
     return 0;
 }
+
+int intersection_cr_cr(struct shape circle_a, struct shape circle_b)
+{
+    double d = (circle_a.coordinates[0] - circle_b.coordinates[0])
+                    * (circle_a.coordinates[0] - circle_b.coordinates[0])
+            + (circle_a.coordinates[1] - circle_b.coordinates[1])
+                    * (circle_a.coordinates[1] - circle_b.coordinates[1]);
+    if (d <= (circle_a.coordinates[2] + circle_b.coordinates[2])
+                        * (circle_a.coordinates[2] + circle_b.coordinates[2])
+        && d >= (circle_a.coordinates[2] > circle_b.coordinates[2]
+                         ? circle_a.coordinates[2] - circle_b.coordinates[2]
+                         : circle_b.coordinates[2] - circle_a.coordinates[2])) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
