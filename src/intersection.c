@@ -58,9 +58,9 @@ float area_circle(int* array)
     return area;
 }
 
-double side_length(double x, double y, double xx, double yy)
+float side_length(float x, float y, float xx, float yy)
 {
-    double len = 0;
+    float len = 0;
     len = sqrt((x - xx) * (x - xx) + (y - yy) * (y - yy));
     return len;
 }
@@ -100,7 +100,7 @@ int intersection_cr_tr(struct shape circle, struct shape triangle)
 
 int intersection_cr_cr(struct shape circle_a, struct shape circle_b)
 {
-    double d = (circle_a.coordinates[0] - circle_b.coordinates[0])
+    float d = (circle_a.coordinates[0] - circle_b.coordinates[0])
                     * (circle_a.coordinates[0] - circle_b.coordinates[0])
             + (circle_a.coordinates[1] - circle_b.coordinates[1])
                     * (circle_a.coordinates[1] - circle_b.coordinates[1]);
@@ -113,4 +113,21 @@ int intersection_cr_cr(struct shape circle_a, struct shape circle_b)
     } else {
         return 0;
     }
+}
+
+float min(float a, float b)
+{
+    if (a < b)
+        return a;
+    if (a > b)
+        return b;
+    return 0;
+}
+float max(float a, float b)
+{
+    if (a < b)
+        return b;
+    if (a > b)
+        return a;
+    return 0;
 }
